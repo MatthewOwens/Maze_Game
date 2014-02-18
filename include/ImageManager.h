@@ -10,9 +10,9 @@ class ImageManager
         ImageManager();
         virtual ~ImageManager();
 
-        void loadImage(std::string fileName);
+        void loadImage(const std::string& fileName);
         void loadImage(std::string fileName, std::string key);
-        sf::Texture getImage(std::string key);
+        sf::Texture& getImage(std::string key);
     private:
         std::map<std::string, sf::Texture> images;
 };
