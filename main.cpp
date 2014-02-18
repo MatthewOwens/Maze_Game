@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "ImageManager.h"
 
 int main()
 {
@@ -21,7 +22,7 @@ int main()
         while (window.pollEvent(event))
         {
             // Closing the window
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
                 window.close();
         }
     }
