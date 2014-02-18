@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1392749747 source:c:\users\matthew\documents\github\maze_game\main.cpp
+1392751569 source:c:\users\matthew\documents\github\maze_game\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"ImageManager.h"
@@ -338,11 +338,18 @@
 	<string>
 	<vector>
 
-1392750113 source:c:\users\matthew\documents\github\maze_game\src\imagemanager.cpp
+1392750446 source:c:\users\matthew\documents\github\maze_game\src\imagemanager.cpp
 	"ImageManager.h"
 	<iostream>
 
-1392750113 c:\users\matthew\documents\github\maze_game\include\imagemanager.h
+1392750426 c:\users\matthew\documents\github\maze_game\include\imagemanager.h
 	<SFML/Graphics.hpp>
 	<map>
+
+1392752343 source:c:\users\matthew\documents\github\maze_game\src\actor.cpp
+	"Actor.h"
+
+1392762048 c:\users\matthew\documents\github\maze_game\include\actor.h
+	<SFML/Graphics.hpp>
+	<list>
 

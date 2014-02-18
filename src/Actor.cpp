@@ -1,6 +1,6 @@
 #include "Actor.h"
 
-Actor::Actor(sf::Texture texture)
+Actor::Actor(sf::Texture& texture)
 {
     // Assigning a texture to the sprite
     sprite.setTexture(texture);
@@ -10,6 +10,7 @@ Actor::Actor(sf::Texture texture)
     sourceRect.top = 0;
     sourceRect.width = 32;
     sourceRect.height = 32;
+    sprite.setTextureRect(sourceRect);
 }
 
 // Accessor functions
