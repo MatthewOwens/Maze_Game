@@ -26,7 +26,8 @@ void ImageManager::loadImage(std::string fileName, std::string key)
 {
     // Loading the texture
     sf::Texture tempTexture;
-    tempTexture.loadFromFile(fileName);
+    if (!tempTexture.loadFromFile(fileName))
+        std::cout << "Error loading " << fileName << std::endl;
 
     // Adding the texture to the map
     images[key] = tempTexture;

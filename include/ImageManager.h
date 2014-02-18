@@ -1,3 +1,8 @@
+/// The ImageManager class is responsible for loading images from a file and
+/// storing them in SFML2 texture objects. This is done using a map with the
+/// image's filename as the key for the texture object. As an alternative,
+/// a seperate key can be specified along with the filename
+
 #ifndef IMAGEMANAGER_H
 #define IMAGEMANAGER_H
 #include <SFML/Graphics.hpp>

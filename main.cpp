@@ -9,14 +9,9 @@
 
 int main()
 {
-    std::cout << "hello, there" << std::endl;
     // The window that the game will be run in
     sf::RenderWindow window(sf::VideoMode(640, 704), "Maze Game - Reborn");
-    sf::Sprite sprite;
-    ImageManager imageManager;
-
-    imageManager.loadImage("feels.png");
-    sprite.setTexture(imageManager.getImage("feels.png"));
+    ImageManager imageManager;  // for loading in images
 
     // Run as long as the window is open
     while (window.isOpen())
@@ -35,7 +30,6 @@ int main()
         // Update Malarky
         // Draw Malarky
         window.clear();
-        window.draw(sprite);
         window.display();
     }
 
