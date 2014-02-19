@@ -33,12 +33,6 @@ Level::Level(const std::string& filename, ImageManager &imageManager)
     }
 }
 
-// Update method, called every loop and is used to change tile colours for the most part.
-void Level::update(std::list<sf::Vector2i> p_visibleTiles)
-{
-
-}
-
 // Draw method, takes a const reference to the window
 void Level::draw(sf::RenderWindow& window)
 {

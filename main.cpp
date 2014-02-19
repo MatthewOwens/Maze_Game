@@ -14,7 +14,7 @@ int main()
 {
     // The window that the game will be run in
     sf::RenderWindow window(sf::VideoMode(640, 704), "Maze Game - Reborn");
-    window.setFramerateLimit(120);
+    window.setFramerateLimit(60);
     ImageManager imageManager;  // for loading in images
     imageManager.loadImage("assets/playerSprite.png", "playerSprite");
     Level testLevel("levels/level0", imageManager);

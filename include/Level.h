@@ -4,9 +4,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "ImageManager.h"
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include <sstream>
-#include <list>
 
 
 class Level
@@ -23,7 +23,6 @@ class Level
         Tile getTile(int x, int y);
         sf::Vector2i getSpawn();
         const int getTileSize();
-        void update(std::list<sf::Vector2i> p_visibleTiles);
     private:
         Tile tiles[10][10];         // The tiles that will make the level map
         sf::Vector2i playerSpawn;   // The player's spawn location on this level
