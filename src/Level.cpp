@@ -1,4 +1,6 @@
 #include "Level.h"
+#include <fstream>
+#include <sstream>
 
 // Constructor, ImageManager is not const as it needs to be manipulated
 Level::Level(const std::string& filename, ImageManager &imageManager)

@@ -4,8 +4,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "ImageManager.h"
 #include <iostream>
-#include <fstream>
-#include <sstream>
 #include <list>
 
 
