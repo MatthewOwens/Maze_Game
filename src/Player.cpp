@@ -16,13 +16,15 @@ Player::~Player()
 void Player::update(Tile tiles[][10], const int tileSize)
 {
     // Finding the player's location on the grid
-    gridLoc = sf::Vector2i(sprite.getPosition().x / tileSize, sprite.getPosition().y / tileSize);
+    gridLoc = sf::Vector2i(sprite.getOrigin().x / tileSize, sprite.getOrigin().y / tileSize);
 
     // Clearing the list of visible tiles from last time
     visibleTiles.clear();
 
     // Resetting the velocity from last time
     velocity = sf::Vector2i();
+
+
 
     // Checking for movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -65,18 +67,23 @@ void Player::update(Tile tiles[][10], const int tileSize)
         for (int j = 0; j < 10; j++)
         {
             //std::cout << tiles[gridLoc.x][gridLoc.y].getIdentifier();
-            if (tiles[gridLoc.x][gridLoc.y].getIdentifier() == 1
-                && sprite.getGlobalBounds().intersects(tiles[gridLoc.x][gridLoc.y].getBounds()))
+            if (tiles[i][j].getIdentifier() == 1
+                && sprite.getGlobalBounds().intersects(tiles[i][j].getBounds()))
             {
                 // Moving the sprite back
-                velocity = sf::Vector2i(-1,0);
-                //velocity *= -1;
+                sprite.setPosition(previousLocation.x, previousLocation.y);
+
+                //velocity = sf::Vector2i();
+                // ^^ Doesn't work, possibly because SFML is getting keyboard input at a
+                // faster rate than the window framerate??
             }
         }
         //std::cout << std::endl;
     }
 
     // Moving the sprite
+    //std::cout << velocity.x << "," << velocity.y << std::endl;
+    previousLocation = sf::Vector2i(sprite.getPosition());
     sprite.move(velocity.x, velocity.y);
 }
 

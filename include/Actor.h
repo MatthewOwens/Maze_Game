@@ -21,6 +21,7 @@ class Actor
         sf::IntRect sourceRect; // The portion of the texture to draw from
         sf::Vector2i gridLoc;
         sf::Vector2i velocity;
+        sf::Vector2i previousLocation;
         int currentFrame;       // The current animation frame, determines
                                 // what part of the texture to draw
 
