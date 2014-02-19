@@ -6,13 +6,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Actor.h"
+#include "Tile.h"
 
 class Player : public Actor
 {
     public:
-        Player();
+        Player(sf::Texture& texture, int x, int y);
         virtual ~Player();
-        void update(int tileIDs[10][10]);
+        void update(Tile tiles[][10], const int tileSize);
+        void outputVisibleTiles();
     private:
 };
 

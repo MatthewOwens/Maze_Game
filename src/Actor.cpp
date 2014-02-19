@@ -1,6 +1,7 @@
 #include "Actor.h"
 
-Actor::Actor(sf::Texture& texture)
+// Constructor, sets values that are shared between the Player and Actor classes
+Actor::Actor(sf::Texture& texture, int x, int y)
 {
     // Assigning a texture to the sprite
     sprite.setTexture(texture);
@@ -11,10 +12,23 @@ Actor::Actor(sf::Texture& texture)
     sourceRect.width = 32;
     sourceRect.height = 32;
     sprite.setTextureRect(sourceRect);
+
+    // Setting the origin of the sprite to the center of the sprite
+    sprite.setOrigin(16, 16);
+
+    // Setting the location of the sprite, offset by the origin.
+    sprite.setPosition(x + 16, y + 16);
+}
+
+// Draw function
+void Actor::draw(sf::RenderWindow& window)
+{
+    window.draw(sprite);
 }
 
 // Accessor functions
 sf::FloatRect Actor::getBounds() {return sprite.getGlobalBounds();}
+std::list<sf::Vector2i> Actor::getVisibleTiles() {return visibleTiles;}
 
 Actor::~Actor()
 {

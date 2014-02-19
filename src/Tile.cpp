@@ -1,5 +1,9 @@
 #include "Tile.h"
 
+
+// Default Constructor
+Tile::Tile() {}
+
 Tile::Tile(sf::Texture& tileSheet, const int tileSize, int id, int x, int y)
 {
     gridLoc.x = x;
@@ -7,11 +11,14 @@ Tile::Tile(sf::Texture& tileSheet, const int tileSize, int id, int x, int y)
     sprite.setTexture(tileSheet);
     sprite.setTextureRect(sf::IntRect(id * tileSize, 0, tileSize, tileSize));
     sprite.setPosition(x * tileSize, y * tileSize);
+    gridLoc = sf::Vector2i(x * tileSize, y * tileSize);
+    identifier = id;
 }
 
-Tile::getBounds() { return sprite.getGlobalBounds(); }
-Tile::getGridLoc() { return gridLoc; }
-Tile::getIdentifier() { return identifier; }
+sf::FloatRect Tile::getBounds() { return sprite.getGlobalBounds(); }
+sf::Vector2i Tile::getGridLoc() { return gridLoc; }
+int Tile::getIdentifier() { return identifier; }
+sf::Sprite Tile::getSprite() { return sprite; }
 
 Tile::~Tile()
 {

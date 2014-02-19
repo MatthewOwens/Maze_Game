@@ -6,12 +6,21 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "ImageManager.h"
+#include "Level.h"
+#include "Player.h"
+#include "Tile.h"
 
 int main()
 {
     // The window that the game will be run in
     sf::RenderWindow window(sf::VideoMode(640, 704), "Maze Game - Reborn");
+    window.setFramerateLimit(60);
     ImageManager imageManager;  // for loading in images
+    imageManager.loadImage("assets/playerSprite.png", "playerSprite");
+    Level testLevel("levels/level0", imageManager);
+    bool booble = true;
+
+    Player player(imageManager.getImage("playerSprite"), testLevel.getSpawn().x, testLevel.getSpawn().y);
 
     // Run as long as the window is open
     while (window.isOpen())
@@ -28,8 +37,21 @@ int main()
         }
 
         // Update Malarky
+        player.update(testLevel.getTiles(), testLevel.getTileSize());
+        if (booble)
+        {
+            std::cout << "player bounds: ";
+            std::cout << player.getBounds().top << " ";
+            std::cout << player.getBounds().left << " ";
+            std::cout << player.getBounds().width << " ";
+            std::cout << player.getBounds().height << std::endl;
+            booble = false;
+        }
+
         // Draw Malarky
         window.clear();
+        testLevel.draw(window);
+        player.draw(window);
         window.display();
     }
 
