@@ -8,6 +8,8 @@
 
 class Tile
 {
+    friend class Level;
+
     public:
         Tile(sf::Texture& tileSheet, const int tileSize, int id, int x, int y);
         Tile(); // Default constructor

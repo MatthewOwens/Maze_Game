@@ -6,6 +6,7 @@ Player::Player(sf::Texture& texture, int x, int y)
     : Actor(texture, x, y)
 {
     //ctor
+    speed = 3;
 }
 
 Player::~Player()
@@ -16,7 +17,7 @@ Player::~Player()
 void Player::update(Tile tiles[][10], const int tileSize)
 {
     // Finding the player's location on the grid
-    gridLoc = sf::Vector2i(sprite.getOrigin().x / tileSize, sprite.getOrigin().y / tileSize);
+    gridLoc = sf::Vector2i(sprite.getPosition().x / tileSize, sprite.getPosition().y / tileSize);
 
     // Clearing the list of visible tiles from last time
     visibleTiles.clear();
@@ -24,38 +25,40 @@ void Player::update(Tile tiles[][10], const int tileSize)
     // Resetting the velocity from last time
     velocity = sf::Vector2i();
 
-
-
     // Checking for movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        velocity.y -= 5;
+        velocity.y -= speed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        velocity.x += 5;
+        velocity.x += speed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        velocity.x -= 5;
+        velocity.x -= speed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        velocity.y += 5;
+        velocity.y += speed;
 
     // Populating the list of visible tiles
     for (int i = gridLoc.x + 1; i < 10; i++)
     {
         if (tiles[i][gridLoc.y].getIdentifier() != 1)
             visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+        else break;
     }
     for (int i = gridLoc.x - 1; i >= 0; i--)
     {
         if (tiles[i][gridLoc.y].getIdentifier() != 1)
             visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+        else break;
     }
     for (int i = gridLoc.y + 1; i < 10; i++)
     {
         if (tiles[gridLoc.x][i].getIdentifier() != 1)
             visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+        else break;
     }
     for (int i = gridLoc.y - 1; i >= 0; i--)
     {
         if (tiles[gridLoc.x][i].getIdentifier() != 1)
             visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+        else break;
     }
 
     // The player's current tile will always be visible
@@ -79,6 +82,14 @@ void Player::update(Tile tiles[][10], const int tileSize)
             }
         }
         //std::cout << std::endl;
+    }
+
+    // Keeping the player within the game region
+    if (sprite.getGlobalBounds().left < 0 || sprite.getGlobalBounds().top < 0
+        || sprite.getGlobalBounds().left + sprite.getGlobalBounds().width > 10 * tileSize
+        || sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > 10 * tileSize)
+    {
+        sprite.setPosition(previousLocation.x, previousLocation.y);
     }
 
     // Moving the sprite

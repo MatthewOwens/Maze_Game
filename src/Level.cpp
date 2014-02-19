@@ -36,7 +36,18 @@ Level::Level(const std::string& filename, ImageManager &imageManager)
 // Update method, called every loop and is used to change tile colours for the most part.
 void Level::update(std::list<sf::Vector2i> p_visibleTiles)
 {
+    // Used to iterate through the visible tiles list
+    std::list<sf::Vector2i>::iterator itr_vector2i;
 
+    // Reverting the tile colours from last time
+    revertTileColors();
+
+    // Changing the color of tiles that the player can see
+    for(itr_vector2i = p_visibleTiles.begin(); itr_vector2i != p_visibleTiles.end(); ++itr_vector2i)
+    {
+        //std::cout <<"TRANSFORM!" << std::endl;
+        tiles[itr_vector2i->x][itr_vector2i->y].sprite.setColor(sf::Color::White);
+    }
 }
 
 // Draw method, takes a const reference to the window
@@ -48,6 +59,18 @@ void Level::draw(sf::RenderWindow& window)
         for (int j = 0; j < 10; j++)
         {
             window.draw(tiles[i][j].getSprite());
+        }
+    }
+}
+
+// Changes the colour of tiles to what they were originally
+void Level::revertTileColors()
+{
+    for(int i = 0; i < 10; i++)
+    {
+        for(int j = 0; j < 10; j++)
+        {
+            tiles[i][j].sprite.setColor(sf::Color(128,128,128));
         }
     }
 }

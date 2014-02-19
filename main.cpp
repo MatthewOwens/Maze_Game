@@ -18,7 +18,6 @@ int main()
     ImageManager imageManager;  // for loading in images
     imageManager.loadImage("assets/playerSprite.png", "playerSprite");
     Level testLevel("levels/level0", imageManager);
-    bool booble = true;
 
     Player player(imageManager.getImage("playerSprite"), testLevel.getSpawn().x, testLevel.getSpawn().y);
 
@@ -38,15 +37,7 @@ int main()
 
         // Update Malarky
         player.update(testLevel.getTiles(), testLevel.getTileSize());
-        if (booble)
-        {
-            std::cout << "player bounds: ";
-            std::cout << player.getBounds().top << " ";
-            std::cout << player.getBounds().left << " ";
-            std::cout << player.getBounds().width << " ";
-            std::cout << player.getBounds().height << std::endl;
-            booble = false;
-        }
+        testLevel.update(player.getVisibleTiles());
 
         // Draw Malarky
         window.clear();

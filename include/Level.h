@@ -28,6 +28,9 @@ class Level
         Tile tiles[10][10];         // The tiles that will make the level map
         sf::Vector2i playerSpawn;   // The player's spawn location on this level
         const int tileSize = 64;
+
+        // Private methods
+        void revertTileColors();
 };
 
 #endif // LEVEL_H

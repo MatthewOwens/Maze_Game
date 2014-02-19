@@ -18,6 +18,9 @@ Actor::Actor(sf::Texture& texture, int x, int y)
 
     // Setting the location of the sprite, offset by the origin.
     sprite.setPosition(x + 16, y + 16);
+
+    // Defaulting the speed to zero, should be defined in child constructor
+    speed = 0;
 }
 
 // Draw function

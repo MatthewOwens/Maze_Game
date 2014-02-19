@@ -22,6 +22,7 @@ class Actor
         sf::Vector2i gridLoc;
         sf::Vector2i velocity;
         sf::Vector2i previousLocation;
+        int speed;              // How far to move the sprite by each loop
         int currentFrame;       // The current animation frame, determines
                                 // what part of the texture to draw
 
