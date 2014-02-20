@@ -119,8 +119,9 @@ void Level::loadItems(const std::string& filepath, ImageManager &imageManager)
     file.close();
 }
 
-// Update method, called every loop and is used to change tile colours for the most part.
-void Level::update(std::list<sf::Vector2i> p_visibleTiles)
+// Update method, called every loop and is used to change tile colours and detect
+// collision between the player and the items.
+void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bounds)
 {
     // Iterators for iterating
     std::list<sf::Vector2i>::iterator itr_vector2i;
@@ -150,15 +151,28 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles)
         }
     }
 
-    // Setting the colours of items based on their flags
+    // Updating the sprites
     // (doing this above would have it done multiple times per frame as it was nested)
     for(itr_item = items.begin(); itr_item != items.end(); ++itr_item)
     {
+        // Checking for collision
+        if (itr_item->sprite.getGlobalBounds().intersects(p_bounds)
+            && !itr_item->collected)
+        {
+            itr_item->collected = true;
+            levelScore += itr_item->value;
+            std::cout << "level score is now " << levelScore << std::endl;
+        }
+
+        // Changing the colour of the sprites
         if (itr_item->visible)
             itr_item->sprite.setColor(sf::Color::White);
         else if (itr_item->seen)
             itr_item->sprite.setColor(sf::Color(128,128,128));
         else
+            itr_item->sprite.setColor(sf::Color::Transparent);
+
+        if (itr_item->collected)
             itr_item->sprite.setColor(sf::Color::Transparent);
     }
 }

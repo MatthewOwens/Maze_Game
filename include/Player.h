@@ -1,7 +1,7 @@
 /// The player class controls the player sprite within the world.
-/// It is repsonsible for getting input from the keyboard in order.
-/// to manipulate the sprite as well as combat between the player
-/// and the 'Guard' characters.
+/// It is repsonsible for getting input from the keyboard in order
+/// to manipulate the sprite as well calculating what tiles are visible
+/// from it's location on the grid.
 
 #ifndef PLAYER_H
 #define PLAYER_H

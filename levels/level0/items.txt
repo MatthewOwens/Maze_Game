@@ -1,4 +1,4 @@
-diamond,0,0
-ruby,1,0
-necklace,2,0
-ingot,3,0
+diamond,1,1
+ruby,2,1
+necklace,3,1
+ingot,4,1

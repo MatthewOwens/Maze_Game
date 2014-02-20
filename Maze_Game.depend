@@ -356,35 +356,36 @@
 	<SFML/Graphics.hpp>
 	<list>
 
-1392903367 c:\users\matthew\documents\github\maze_game\include\level.h
+1392912992 c:\users\matthew\documents\github\maze_game\include\level.h
 	"Tile.h"
 	<SFML/Graphics/RenderWindow.hpp>
 	"ImageManager.h"
 	"Item.h"
+	"Player.h"
 	<iostream>
 	<list>
 
 1392844725 c:\users\matthew\documents\github\maze_game\include\tile.h
 	<SFML/Graphics.hpp>
 
-1392903587 source:c:\users\matthew\documents\github\maze_game\src\level.cpp
+1392912997 source:c:\users\matthew\documents\github\maze_game\src\level.cpp
 	"Level.h"
 	<fstream>
 	<sstream>
 
-1392845795 source:c:\users\matthew\documents\github\maze_game\src\player.cpp
+1392906947 source:c:\users\matthew\documents\github\maze_game\src\player.cpp
 	"Player.h"
 	<SFML/Window/Keyboard.hpp>
 	<iostream>
 
-1392906504 c:\users\matthew\documents\github\maze_game\include\player.h
+1392912705 c:\users\matthew\documents\github\maze_game\include\player.h
 	"Actor.h"
 	"Tile.h"
 
 1392844305 source:c:\users\matthew\documents\github\maze_game\src\tile.cpp
 	"Tile.h"
 
-1392856532 source:c:\users\matthew\documents\github\maze_game\src\main.cpp
+1392912813 source:c:\users\matthew\documents\github\maze_game\src\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"ImageManager.h"
@@ -399,4 +400,13 @@
 1392857858 source:c:\users\matthew\documents\github\maze_game\src\item.cpp
 	"Item.h"
 	<iostream>
+
+1392912287 source:c:\users\matthew\documents\github\maze_game\src\guard.cpp
+	"Guard.h"
+	<iostream>
+
+1392912098 c:\users\matthew\documents\github\maze_game\include\guard.h
+	"Actor.h"
+	<string>
+	"Tile.h"
 

@@ -41,7 +41,7 @@ int main()
 
         // Update Malarky
         player.update(testLevel.getTiles(), testLevel.getTileSize());
-        testLevel.update(player.getVisibleTiles());
+        testLevel.update(player.getVisibleTiles(), player.getBounds());
 
         // Draw Malarky
         window.clear();
