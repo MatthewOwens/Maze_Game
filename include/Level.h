@@ -32,6 +32,7 @@ class Level
 
         // Private methods
         void revertTileColors();
+        void revertItemFlags();
         void loadMap(const std::string& filepath, ImageManager &imageManager);
         void loadItems(const std::string& filepath, ImageManager &imageManager);
 };

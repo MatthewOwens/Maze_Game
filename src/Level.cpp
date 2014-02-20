@@ -129,6 +129,9 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles)
     // Reverting the tile colours from last time
     revertTileColors();
 
+    // Reverting the item flags from last time
+    revertItemFlags();
+
     // Iterating through the tiles the player can see
     for(itr_vector2i = p_visibleTiles.begin(); itr_vector2i != p_visibleTiles.end(); ++itr_vector2i)
     {
@@ -143,23 +146,14 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles)
             {
                 itr_item->seen = true;
                 itr_item->visible = true;
-                std::cout << "bazinga ";
-            }
-            else
-            {
-                std::cout << "fuck off ";
-                itr_item->visible = false;
             }
         }
-        std::cout << std::endl;
     }
-    std::cout << std::endl;
 
     /// TODO: GET ITEM VISIBILITY WORKING CORRECTLY.
 
     // Setting the colours of items based on their flags
     // (doing this above would have it done multiple times per frame as it was nested)
-    int visCounter = 0;
     for(itr_item = items.begin(); itr_item != items.end(); ++itr_item)
     {
         if (itr_item->visible)
@@ -199,6 +193,14 @@ void Level::revertTileColors()
             tiles[i][j].sprite.setColor(sf::Color(128,128,128));
         }
     }
+}
+
+// Resets the visiblity flag on items
+void Level::revertItemFlags()
+{
+    std::list<Item>::iterator itr_item;
+    for (itr_item = items.begin(); itr_item != items.end(); ++itr_item)
+        itr_item->visible = false;
 }
 
 Level::~Level()
