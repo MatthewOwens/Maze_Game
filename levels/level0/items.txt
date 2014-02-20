@@ -1,0 +1,4 @@
+diamond,0,0
+ruby,1,0
+necklace,2,0
+ingot,3,0

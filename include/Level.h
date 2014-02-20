@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "ImageManager.h"
+#include "Item.h"
 #include <iostream>
 #include <list>
 
@@ -24,11 +25,15 @@ class Level
         void update(std::list<sf::Vector2i> p_visibleTiles);
     private:
         Tile tiles[10][10];         // The tiles that will make the level map
+        std::list<Item> items;      // The items that will populate the level
         sf::Vector2i playerSpawn;   // The player's spawn location on this level
         const int tileSize = 64;
+        int levelScore;             // The player's score for the current level
 
         // Private methods
         void revertTileColors();
+        void loadMap(const std::string& filepath, ImageManager &imageManager);
+        void loadItems(const std::string& filepath, ImageManager &imageManager);
 };
 
 #endif // LEVEL_H

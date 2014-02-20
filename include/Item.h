@@ -7,7 +7,8 @@
 
 #ifndef ITEM_H
 #define ITEM_H
-
+#include <string>
+#include <SFML/Graphics.hpp>
 
 class Item
 {
@@ -15,7 +16,8 @@ class Item
 
     public:
         Item(); // Default constructor.
-        Item(std::string identifier);
+        Item(std::string identifier, int x, int y, const int tileSize);
+        sf::Vector2i getGridLoc(const int tileSize);
         virtual ~Item();
 
     private:
@@ -25,6 +27,10 @@ class Item
         bool seen;          // If the item has been seen before
         bool visible;       // If the item can currently be seen
         std::string id;     // What type of item this is
+
+        // Only the level shourld be able access these functions
+        void reset();
+        void setTexture(sf::Texture &texure);
 };
 
 #endif // ITEM_H

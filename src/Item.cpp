@@ -1,6 +1,7 @@
 #include "Item.h"
+#include <iostream>
 
-Item::Item(std::string identifier)
+Item::Item(std::string identifier, int x, int y, const int tileSize)
 {
     id = identifier;
     collected = false;
@@ -17,7 +18,32 @@ Item::Item(std::string identifier)
     else if (identifier == "necklace")
         value = 50;
     else
+    {
         std::cout << "Item identifier unknown, check your params mate." << std::endl;
+        std::cout << "The nonsense you typed was: " << identifier << std::endl;
+    }
+
+    sprite.setPosition((x * tileSize) + 16
+                      ,(y * tileSize) + 16);
+}
+
+void Item::setTexture(sf::Texture& texture)
+{
+    sprite.setTexture(texture);
+}
+
+sf::Vector2i Item::getGridLoc(const int tileSize)
+{
+    return sf::Vector2i(sprite.getPosition().x / tileSize,
+                        sprite.getPosition().y / tileSize);
+}
+
+void Item::reset()
+{
+    seen = false;
+    collected = false;
+    visible = false;
+    sprite.setColor(sf::Color::White);
 }
 
 Item::Item()
