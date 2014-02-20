@@ -150,8 +150,6 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles)
         }
     }
 
-    /// TODO: GET ITEM VISIBILITY WORKING CORRECTLY.
-
     // Setting the colours of items based on their flags
     // (doing this above would have it done multiple times per frame as it was nested)
     for(itr_item = items.begin(); itr_item != items.end(); ++itr_item)

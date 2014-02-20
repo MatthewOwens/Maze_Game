@@ -17,9 +17,12 @@ class Actor
         sf::FloatRect getBounds();
         std::list<sf::Vector2i> getVisibleTiles();
     protected:
+        enum Direction{ North, South, East, West};
+
+        Direction directionFacing;
         sf::Sprite sprite;      // The sprite to draw to the screen
         sf::IntRect sourceRect; // The portion of the texture to draw from
-        sf::Vector2i gridLoc;
+        sf::Vector2i gridLoc;   // The Actor's position on the grid
         sf::Vector2i velocity;
         sf::Vector2i previousLocation;
         int speed;              // How far to move the sprite by each loop

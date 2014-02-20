@@ -7,6 +7,7 @@ Player::Player(sf::Texture& texture, int x, int y)
 {
     //ctor
     speed = 3;
+    directionFacing = Direction::North;
 }
 
 Player::~Player()
@@ -27,13 +28,27 @@ void Player::update(Tile tiles[][10], const int tileSize)
 
     // Checking for movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
         velocity.y -= speed;
+        directionFacing = Direction::North;
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
         velocity.x += speed;
+        directionFacing = Direction::East;
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
         velocity.x -= speed;
+        directionFacing = Direction::West;
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
         velocity.y += speed;
+        directionFacing = Direction::South;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+        peek(tiles, tileSize);
 
     // Populating the list of visible tiles
     for (int i = gridLoc.x + 1; i < 10; i++)
@@ -96,6 +111,111 @@ void Player::update(Tile tiles[][10], const int tileSize)
     //std::cout << velocity.x << "," << velocity.y << std::endl;
     previousLocation = sf::Vector2i(sprite.getPosition());
     sprite.move(velocity.x, velocity.y);
+}
+
+// The peek method allows the player to peek around corners by adding more
+// values to the visible tiles array based on the direction that the player's
+// facing as well as the player's position within the current tile.
+void Player::peek(Tile tiles[][10], const int tileSize)
+{
+    // The player's position within this tile.
+    sf::Vector2i localPos(sprite.getPosition().x - (gridLoc.x * tileSize),
+                          sprite.getPosition().y - (gridLoc.y * tileSize));
+
+    // Determining where to peek based on what direction the player is facing.
+    switch(directionFacing)
+    {
+    case East:
+        if (tiles[gridLoc.x + 1][gridLoc.y].getIdentifier() != 1)
+            break;
+
+        for(int i = gridLoc.x + 1; i < 10; i++)
+        {
+            if (localPos.y >= 32)
+            {
+                if (tiles[i][gridLoc.y + 1].getIdentifier() != 1
+                    && gridLoc.y + 1 < 10)
+                {
+                    visibleTiles.push_back(sf::Vector2i(i, gridLoc.y + 1));
+                }
+                else break;
+            }
+            else
+            {
+                if (tiles[i][gridLoc.y - 1].getIdentifier() != 1
+                    && gridLoc.y - 1 >= 0)
+                    visibleTiles.push_back(sf::Vector2i(i, gridLoc.y - 1));
+                else break;
+            }
+        }
+        break;
+    case West:
+        if (tiles[gridLoc.x - 1][gridLoc.y].getIdentifier() != 1)
+            break;
+
+        for (int i = gridLoc.x - 1; i >= 0; i--)
+        {
+            if (localPos.y >= 32)
+            {
+                if (tiles[i][gridLoc.y + 1].getIdentifier() != 1
+                    && gridLoc.y + 1 < 10)
+                    visibleTiles.push_back(sf::Vector2i(i, gridLoc.y + 1));
+                else break;
+            }
+            else
+            {
+                if (tiles[i][gridLoc.y - 1].getIdentifier() != 1
+                    && gridLoc.y - 1 >= 0)
+                    visibleTiles.push_back(sf::Vector2i(i, gridLoc.y - 1));
+                else break;
+            }
+        }
+        break;
+    case South:
+        if (tiles[gridLoc.x][gridLoc.y + 1].getIdentifier() != 1)
+            break;
+
+        for (int i = gridLoc.y + 1; i < 10; i++)
+        {
+            if (localPos.x >= 32)
+            {
+                if (tiles[gridLoc.x + 1][i].getIdentifier() != 1
+                    && gridLoc.x + 1 < 10)
+                    visibleTiles.push_back(sf::Vector2i(gridLoc.x + 1, i));
+                else break;
+            }
+            else
+            {
+                if (tiles[gridLoc.x - 1][i].getIdentifier() != 1
+                    && gridLoc.x - 1 >= 0)
+                    visibleTiles.push_back(sf::Vector2i(gridLoc.x - 1, i));
+                else break;
+            }
+        }
+        break;
+    case North:
+        if (tiles[gridLoc.x][gridLoc.y - 1].getIdentifier() != 1)
+            break;
+
+        for (int i = gridLoc.y - 1; i >= 0; i--)
+        {
+            if (localPos.x >= 32)
+            {
+                if (tiles[gridLoc.x + 1][i].getIdentifier() != 1
+                    && gridLoc.x + 1 < 10)
+                    visibleTiles.push_back(sf::Vector2i(gridLoc.x + 1, i));
+                else break;
+            }
+            else
+            {
+                if (tiles[gridLoc.x - 1][i].getIdentifier() != 1
+                    && gridLoc.x - 1 >= 0)
+                    visibleTiles.push_back(sf::Vector2i(gridLoc.x - 1, i));
+                else break;
+            }
+        }
+        break;
+    }
 }
 
 void Player::outputVisibleTiles()

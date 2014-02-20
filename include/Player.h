@@ -16,6 +16,8 @@ class Player : public Actor
         void update(Tile tiles[][10], const int tileSize);
         void outputVisibleTiles();
     private:
+        void peek(Tile tiles[][10], const int tileSize);
+
 };
 
 #endif // PLAYER_H
