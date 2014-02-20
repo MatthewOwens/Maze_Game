@@ -4,8 +4,15 @@
 Guard::Guard(int x, int y, int _speed, std::string direction, sf::Texture& texture)
     : Actor(texture, x, y)
 {
+    // Setting flags
+    alive = true;
+    visible = false;
+
     // Setting the speed
     speed = _speed;
+
+    // Setting the inital location
+    initialLocation = sprite.getPosition();
 
     // Parsing the direction string
     if(direction == "north")
@@ -29,9 +36,12 @@ Guard::Guard(int x, int y, int _speed, std::string direction, sf::Texture& textu
         velocity = sf::Vector2i(speed, 0);
     }
     else std::cout << "Invalid direction passed to guard, you input: " << direction << std::endl;
+
+    // Setting the initial velocity
+    initialVelocity = velocity;
 }
 
-void Guard::getCollisionTiles(Tile tiles[][10], const int tileSize)
+void Guard::initCollisionTiles(Tile tiles[][10], const int tileSize)
 {
     bool searchingHighs = true;
     bool searchingLows = true;
@@ -46,7 +56,6 @@ void Guard::getCollisionTiles(Tile tiles[][10], const int tileSize)
     collisionTiles[0].y = gridLoc.y;
     collisionTiles[1].x = gridLoc.x;
     collisionTiles[1].y = gridLoc.y;
-
 
     // Finding the collision tiles
     while(searchingHighs || searchingLows)
@@ -72,20 +81,59 @@ void Guard::getCollisionTiles(Tile tiles[][10], const int tileSize)
             // If the guard is moving horizontally
             if(directionFacing == Direction::East || directionFacing == Direction::West)
             {
-                if(tiles[gridLoc.x + counter][gridLoc.y].getIdentifier() != 1)
+                if(tiles[gridLoc.x - counter][gridLoc.y].getIdentifier() != 1)
                     collisionTiles[1].x--;
                 else searchingLows = false;
             }
             else
             {
-                if(tiles[gridLoc.x][gridLoc.y + counter].getIdentifier() != 1)
+                if(tiles[gridLoc.x][gridLoc.y - counter].getIdentifier() != 1)
                     collisionTiles[1].y--;
                 else searchingLows = false;
             }
         }
+        counter++;
     }
     std::cout << "Guard collision tile 0: " << collisionTiles[0].x << " " << collisionTiles[0].y << std::endl;
     std::cout << "Guard collision tile 1: " << collisionTiles[1].x << " " << collisionTiles[1].y << std::endl;
+}
+
+bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds)
+{
+    bool playerCollision = false;
+
+    // Checking for collision with tiles
+    if ( sprite.getGlobalBounds().intersects(l_tiles[collisionTiles[0].x][collisionTiles[0].y].getBounds())
+       ||sprite.getGlobalBounds().intersects(l_tiles[collisionTiles[1].x][collisionTiles[1].y].getBounds()))
+    {
+        velocity *= -1;
+    }
+
+    sprite.move(velocity.x, velocity.y);
+
+    if(sprite.getGlobalBounds().intersects(p_bounds))
+       playerCollision = true;
+
+    return playerCollision;
+}
+
+void Guard::reset()
+{
+    alive = true;
+    visible = false;
+    sprite.setPosition(initialLocation);
+}
+
+// Accessor methods
+sf::Sprite Guard::getSprite() { return sprite; }
+bool Guard::getAlive() { return alive; }
+bool Guard::getVisible() { return visible; }
+void Guard::setVisible(bool value) { visible = value; }
+void Guard::setAlive(bool value) { alive = value; }
+sf::Vector2i Guard::getGridLoc(const int tileSize)
+{
+    return sf::Vector2i(sprite.getPosition().x / tileSize,
+                        sprite.getPosition().y / tileSize);
 }
 
 Guard::~Guard()

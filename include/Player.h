@@ -14,9 +14,11 @@ class Player : public Actor
         Player(sf::Texture& texture, int x, int y);
         virtual ~Player();
         void update(Tile tiles[][10], const int tileSize);
+        void die(sf::Vector2i spawn);
         void outputVisibleTiles();
     private:
         void peek(Tile tiles[][10], const int tileSize);
+        int lives = 3;
 
 };
 

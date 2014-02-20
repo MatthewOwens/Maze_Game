@@ -43,12 +43,14 @@
 			<Add directory="C:/Users/Matthew/Documents/Programming/SFML-2.1/lib" />
 		</Linker>
 		<Unit filename="include/Actor.h" />
+		<Unit filename="include/Guard.h" />
 		<Unit filename="include/ImageManager.h" />
 		<Unit filename="include/Item.h" />
 		<Unit filename="include/Level.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/Tile.h" />
 		<Unit filename="src/Actor.cpp" />
+		<Unit filename="src/Guard.cpp" />
 		<Unit filename="src/ImageManager.cpp" />
 		<Unit filename="src/Item.cpp" />
 		<Unit filename="src/Level.cpp" />

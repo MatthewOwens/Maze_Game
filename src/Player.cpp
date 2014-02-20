@@ -15,6 +15,12 @@ Player::~Player()
     //dtor
 }
 
+void Player::die(sf::Vector2i spawn)
+{
+    lives--;
+    sprite.setPosition(spawn.x + 32,spawn.y + 32);
+}
+
 void Player::update(Tile tiles[][10], const int tileSize)
 {
     // Finding the player's location on the grid

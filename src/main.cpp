@@ -16,11 +16,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(640, 704), "Maze Game - Reborn");
     window.setFramerateLimit(60);
     ImageManager imageManager;  // for loading in images
-    imageManager.loadImage("assets/playerSprite.png", "playerSprite");
-    imageManager.loadImage("assets/diamondSprite.png", "diamond");
-    imageManager.loadImage("assets/rubySprite.png", "ruby");
-    imageManager.loadImage("assets/necklaceSprite.png", "necklace");
-    imageManager.loadImage("assets/ingotSprite.png", "ingot");
     Level testLevel("levels/level0", imageManager);
 
     Player player(imageManager.getImage("playerSprite"), testLevel.getSpawn().x, testLevel.getSpawn().y);
@@ -42,6 +37,9 @@ int main()
         // Update Malarky
         player.update(testLevel.getTiles(), testLevel.getTileSize());
         testLevel.update(player.getVisibleTiles(), player.getBounds());
+
+        if(testLevel.getGuardCollision())
+            player.die(testLevel.getSpawn());
 
         // Draw Malarky
         window.clear();

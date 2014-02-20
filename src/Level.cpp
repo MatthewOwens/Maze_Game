@@ -5,6 +5,8 @@
 // Constructor, ImageManager is not const as it needs to be manipulated
 Level::Level(const std::string& filepath, ImageManager &imageManager)
 {
+    std::list<Guard>::iterator itr_guard;
+
     // Loading this level's tilesheet
     imageManager.loadImage(filepath + "/tilesheet.png");
 
@@ -13,6 +15,15 @@ Level::Level(const std::string& filepath, ImageManager &imageManager)
 
     // Loading the items
     loadItems(filepath, imageManager);
+
+    // Loading the guards
+    loadGuards(filepath, imageManager);
+
+    // Initilizing the collision locations of the guards
+
+    /// ERROR
+    for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
+        itr_guard->initCollisionTiles(tiles, tileSize);
 }
 
 // Loading the tiles, this method is called in the constructor
@@ -119,6 +130,67 @@ void Level::loadItems(const std::string& filepath, ImageManager &imageManager)
     file.close();
 }
 
+// Loading guards, this method should only be called by the constructor
+void Level::loadGuards(const std::string& filepath, ImageManager &imageManager)
+{
+    std::ifstream file(filepath + "/guards.txt");
+    int counter = 0;
+    std::string line;
+    std::string subString;
+    std::istringstream convert;
+    std::stringstream ss;
+
+
+    int tempX;
+    int tempY;
+    int tempSpeed;
+    std::string tempDirection;
+
+    if(file.good())
+    {
+        while(std::getline(file, line))
+        {
+            ss.str(line);
+            ss.clear();
+            while(std::getline(ss, subString, ','))
+            {
+                switch(counter)
+                {
+                case 3:
+                    convert.str(subString);
+                    convert >> tempDirection;
+                    convert.clear();
+                    break;
+                case 0:
+                    convert.str(subString);
+                    convert >> tempX;
+                    convert.clear();
+                    break;
+                case 1:
+                    convert.str(subString);
+                    convert >> tempY;
+                    convert.clear();
+                    break;
+                case 2:
+                    convert.str(subString);
+                    convert >> tempSpeed;
+                    convert.clear();
+                    break;
+                }
+                counter++;
+            }
+            counter = 0;
+            std::cout << "Guard values: " << tempDirection << "," << tempX << "," << tempY << "," << tempSpeed<< std::endl;
+            guards.push_back(Guard(tempX * tileSize, tempY * tileSize, tempSpeed, tempDirection, imageManager.getImage("guardSprite")));
+
+        }
+    }
+    else
+    {
+        std::cout << "Error loading " << filepath + "/guards.txt" << std::endl;
+    }
+}
+
 // Update method, called every loop and is used to change tile colours and detect
 // collision between the player and the items.
 void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bounds)
@@ -126,12 +198,18 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
     // Iterators for iterating
     std::list<sf::Vector2i>::iterator itr_vector2i;
     std::list<Item>::iterator itr_item;
+    std::list<Guard>::iterator itr_guard;
+
+    guardCollision = false;
 
     // Reverting the tile colours from last time
     revertTileColors();
 
     // Reverting the item flags from last time
     revertItemFlags();
+
+    // Reverting the guard flags from last time
+    revertGuardFlags();
 
     // Iterating through the tiles the player can see
     for(itr_vector2i = p_visibleTiles.begin(); itr_vector2i != p_visibleTiles.end(); ++itr_vector2i)
@@ -149,6 +227,16 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
                 itr_item->visible = true;
             }
         }
+
+        // Changing the guard visiibilty flags
+        for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
+        {
+            if (itr_guard->getGridLoc(tileSize).x == itr_vector2i->x
+              &&itr_guard->getGridLoc(tileSize).y == itr_vector2i->y)
+            {
+                itr_guard->setVisible(true);
+            }
+        }
     }
 
     // Updating the sprites
@@ -159,9 +247,13 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
         if (itr_item->sprite.getGlobalBounds().intersects(p_bounds)
             && !itr_item->collected)
         {
+            if (itr_item->id == "diamond")
+                levelComplete = true;
+
             itr_item->collected = true;
             levelScore += itr_item->value;
             std::cout << "level score is now " << levelScore << std::endl;
+            std::cout << "complete flag is " << levelComplete << std::endl;
         }
 
         // Changing the colour of the sprites
@@ -175,24 +267,60 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
         if (itr_item->collected)
             itr_item->sprite.setColor(sf::Color::Transparent);
     }
+
+    // Updating guards
+    for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
+    {
+        if(itr_guard->update(tiles, p_bounds))
+        {
+            guardCollision = true;
+            reset();
+            break;
+        }
+    }
+
 }
+
+// Reset method, called when the player dies
+void Level::reset()
+{
+    std::list<Item>::iterator itr_items;
+    std::list<Guard>::iterator itr_guard;
+
+    for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
+        itr_guard->reset();
+
+    for(itr_items = items.begin(); itr_items != items.end(); ++itr_items)
+        itr_items->reset();
+
+    levelScore = 0;
+}
+
 
 // Draw method, takes a const reference to the window
 void Level::draw(sf::RenderWindow& window)
 {
     std::list<Item>::iterator itr_item;
+    std::list<Guard>::iterator itr_guard;
     // Drawing the tiles
     for(int i = 0; i < 10; i++)
     {
         for (int j = 0; j < 10; j++)
         {
-            window.draw(tiles[i][j].getSprite());
+            window.draw(tiles[i][j].sprite);
         }
     }
 
     // Drawing the items
     for(itr_item = items.begin(); itr_item != items.end(); ++itr_item)
         window.draw(itr_item->sprite);
+
+    // Drawing the guards
+    for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
+    {
+        if(itr_guard->getAlive() && itr_guard->getVisible())
+            window.draw(itr_guard->getSprite());
+    }
 }
 
 // Changes the colour of tiles to what they were originally
@@ -215,6 +343,14 @@ void Level::revertItemFlags()
         itr_item->visible = false;
 }
 
+// Resets the visibilty flags on guards
+void Level::revertGuardFlags()
+{
+    std::list<Guard>::iterator itr_guard;
+    for (itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
+        itr_guard->setVisible(false);
+}
+
 Level::~Level()
 {
     //dtor
@@ -228,3 +364,4 @@ Level::TilePtr Level::getTiles()
 Tile Level::getTile(int x, int y) { return tiles[x][y]; }
 sf::Vector2i Level::getSpawn() { return playerSpawn; }
 const int Level::getTileSize() { return tileSize; }
+bool Level::getGuardCollision() {return guardCollision; }

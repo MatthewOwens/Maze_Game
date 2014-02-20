@@ -3,7 +3,13 @@
 
 ImageManager::ImageManager()
 {
-    //ctor
+    // Loading images that will be used throughout the program
+    imageManager.loadImage("assets/playerSprite.png", "playerSprite");
+    imageManager.loadImage("assets/diamondSprite.png", "diamond");
+    imageManager.loadImage("assets/rubySprite.png", "ruby");
+    imageManager.loadImage("assets/necklaceSprite.png", "necklace");
+    imageManager.loadImage("assets/ingotSprite.png", "ingot");
+    imageManager.loadImage("assets/guardSprite.png", "guardSprite");
 }
 
 ImageManager::~ImageManager()
