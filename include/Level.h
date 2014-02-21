@@ -23,7 +23,7 @@ class Level
         Level(const std::string& filepath, ImageManager &imageManager);
         virtual ~Level();
         void draw(sf::RenderWindow& window);
-        void update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bounds);
+        void update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bounds, sf::FloatRect p_weaponBounds, bool p_attacking);
         void reset();
 
         // Accessor methods
@@ -40,8 +40,10 @@ class Level
         sf::Vector2i playerSpawn;   // The player's spawn location on this level
         const int tileSize = 64;
         int levelScore = 0;         // The player's score for the current level
-        bool levelComplete = false; // Wether or not the level is done.
-        bool guardCollision = false;// Wether or not the player collided with a guard
+        bool levelComplete = false; // Whether or not the level is done.
+        bool guardCollision = false;// Whether or not the player collided with a guard
+        bool stealthBonus = true;   // Whether or not the player was seen during the level
+        bool pacifistBonus = true;  // Whether or not the player killed an enemy during the level.
 
         // Private methods
         void revertTileColors();

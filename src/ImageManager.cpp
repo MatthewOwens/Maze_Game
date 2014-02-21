@@ -4,12 +4,13 @@
 ImageManager::ImageManager()
 {
     // Loading images that will be used throughout the program
-    imageManager.loadImage("assets/playerSprite.png", "playerSprite");
-    imageManager.loadImage("assets/diamondSprite.png", "diamond");
-    imageManager.loadImage("assets/rubySprite.png", "ruby");
-    imageManager.loadImage("assets/necklaceSprite.png", "necklace");
-    imageManager.loadImage("assets/ingotSprite.png", "ingot");
-    imageManager.loadImage("assets/guardSprite.png", "guardSprite");
+    loadImage("assets/playerSprite.png", "playerSprite");
+    loadImage("assets/diamondSprite.png", "diamond");
+    loadImage("assets/rubySprite.png", "ruby");
+    loadImage("assets/necklaceSprite.png", "necklace");
+    loadImage("assets/ingotSprite.png", "ingot");
+    loadImage("assets/guardSprite.png", "guardSprite");
+    loadImage("assets/weaponSprite.png", "weaponSprite");
 }
 
 ImageManager::~ImageManager()

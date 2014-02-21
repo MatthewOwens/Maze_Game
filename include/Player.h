@@ -11,14 +11,22 @@
 class Player : public Actor
 {
     public:
-        Player(sf::Texture& texture, int x, int y);
+        Player(sf::Texture& texture, sf::Texture& weaponTexture, int x, int y);
         virtual ~Player();
         void update(Tile tiles[][10], const int tileSize);
         void die(sf::Vector2i spawn);
         void outputVisibleTiles();
+        void draw(sf::RenderWindow& renderWindow);
+        sf::FloatRect getWeaponBounds();
+        bool isAttacking();
     private:
         void peek(Tile tiles[][10], const int tileSize);
         int lives = 3;
+        bool attacking = false;
+        const int attackTimeMs = 500;   // The attack time in milliseconds
+        float attackTimer;
+        sf::Clock clock;
+        sf::Sprite weaponSprite;
 
 };
 

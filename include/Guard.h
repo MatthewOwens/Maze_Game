@@ -11,7 +11,7 @@ class Guard : public Actor
     public:
         Guard(int x, int y, int speed, std::string direction, sf::Texture& texture);
         void initCollisionTiles(Tile tiles[][10], const int tileSize);
-        bool update(Tile l_tiles[][10], sf::FloatRect p_bounds);
+        bool update(Tile l_tiles[][10], sf::FloatRect p_bounds, const int tileSize);
         void reset();
         virtual ~Guard();
 

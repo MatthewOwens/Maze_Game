@@ -98,9 +98,13 @@ void Guard::initCollisionTiles(Tile tiles[][10], const int tileSize)
     std::cout << "Guard collision tile 1: " << collisionTiles[1].x << " " << collisionTiles[1].y << std::endl;
 }
 
-bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds)
+bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds, const int tileSize)
 {
     bool playerCollision = false;
+    visibleTiles.clear();
+
+    // Finding the guard's location on the grid
+    gridLoc = sf::Vector2i(sprite.getPosition().x / tileSize, sprite.getPosition().y / tileSize);
 
     // Checking for collision with tiles
     if ( sprite.getGlobalBounds().intersects(l_tiles[collisionTiles[0].x][collisionTiles[0].y].getBounds())
@@ -108,6 +112,29 @@ bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds)
     {
         velocity *= -1;
     }
+
+    // Updating the tiles that the guards can see
+    if (velocity.x > 0)
+    {
+        for(int i = gridLoc.x; i < 10; i++)
+            visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+    }
+    else
+    {
+        for(int i = gridLoc.x; i >= 0; i--)
+            visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+    }
+    if (velocity.y > 0)
+    {
+        for(int i = gridLoc.y; i < 10; i++)
+            visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+    }
+    else
+    {
+        for(int i = gridLoc.y; i >= 0; i--)
+            visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+    }
+
 
     sprite.move(velocity.x, velocity.y);
 

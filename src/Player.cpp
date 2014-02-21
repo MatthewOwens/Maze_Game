@@ -2,12 +2,15 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
 
-Player::Player(sf::Texture& texture, int x, int y)
+Player::Player(sf::Texture& texture, sf::Texture& weaponTexture, int x, int y)
     : Actor(texture, x, y)
 {
     //ctor
     speed = 3;
     directionFacing = Direction::North;
+    weaponSprite.setTexture(weaponTexture);
+    weaponSprite.setOrigin(8,16);
+    weaponSprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - sprite.getGlobalBounds().height);
 }
 
 Player::~Player()
@@ -32,29 +35,54 @@ void Player::update(Tile tiles[][10], const int tileSize)
     // Resetting the velocity from last time
     velocity = sf::Vector2i();
 
+    // Getting the elapsed time of the program
+    float elapsedTime = clock.getElapsedTime().asMilliseconds();
+
     // Checking for movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         velocity.y -= speed;
         directionFacing = Direction::North;
+        weaponSprite.setPosition(sprite.getPosition().x,
+                                 sprite.getPosition().y - sprite.getGlobalBounds().height);
+        weaponSprite.setRotation(0);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         velocity.x += speed;
         directionFacing = Direction::East;
+        weaponSprite.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width,
+                                 sprite.getPosition().y);
+        weaponSprite.setRotation(90);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         velocity.x -= speed;
         directionFacing = Direction::West;
+        weaponSprite.setPosition(sprite.getPosition().x - sprite.getGlobalBounds().width,
+                         sprite.getPosition().y);
+        weaponSprite.setRotation(270);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         velocity.y += speed;
         directionFacing = Direction::South;
+        weaponSprite.setPosition(sprite.getPosition().x,
+                                 sprite.getPosition().y + sprite.getGlobalBounds().height);
+        weaponSprite.setRotation(180);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         peek(tiles, tileSize);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && !attacking)
+    {
+        attacking = true;
+        attackTimer = elapsedTime;
+    }
+
+    // Checking if the player has stopped attacking
+    if (elapsedTime - attackTimer >= attackTimeMs)
+        attacking = false;
 
     // Populating the list of visible tiles
     for (int i = gridLoc.x + 1; i < 10; i++)
@@ -114,7 +142,6 @@ void Player::update(Tile tiles[][10], const int tileSize)
     }
 
     // Moving the sprite
-    //std::cout << velocity.x << "," << velocity.y << std::endl;
     previousLocation = sf::Vector2i(sprite.getPosition());
     sprite.move(velocity.x, velocity.y);
 }
@@ -224,6 +251,14 @@ void Player::peek(Tile tiles[][10], const int tileSize)
     }
 }
 
+void Player::draw(sf::RenderWindow& window)
+{
+    if(attacking)
+        window.draw(weaponSprite);
+
+    Actor::draw(window);
+}
+
 void Player::outputVisibleTiles()
 {
     std::list<sf::Vector2i>::iterator itr;
@@ -233,3 +268,7 @@ void Player::outputVisibleTiles()
         std::cout << "I can see (" << itr->x << "," << itr->y << ")" << std::endl;
     }
 }
+
+// Accessor methods
+sf::FloatRect Player::getWeaponBounds() { return weaponSprite.getGlobalBounds(); }
+bool Player::isAttacking() { return attacking; }

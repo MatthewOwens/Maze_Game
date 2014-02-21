@@ -18,7 +18,7 @@ int main()
     ImageManager imageManager;  // for loading in images
     Level testLevel("levels/level0", imageManager);
 
-    Player player(imageManager.getImage("playerSprite"), testLevel.getSpawn().x, testLevel.getSpawn().y);
+    Player player(imageManager.getImage("playerSprite"), imageManager.getImage("weaponSprite"), testLevel.getSpawn().x, testLevel.getSpawn().y);
 
     // Run as long as the window is open
     while (window.isOpen())
@@ -36,7 +36,7 @@ int main()
 
         // Update Malarky
         player.update(testLevel.getTiles(), testLevel.getTileSize());
-        testLevel.update(player.getVisibleTiles(), player.getBounds());
+        testLevel.update(player.getVisibleTiles(), player.getBounds(), player.getWeaponBounds(), player.isAttacking());
 
         if(testLevel.getGuardCollision())
             player.die(testLevel.getSpawn());

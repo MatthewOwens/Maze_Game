@@ -193,7 +193,7 @@ void Level::loadGuards(const std::string& filepath, ImageManager &imageManager)
 
 // Update method, called every loop and is used to change tile colours and detect
 // collision between the player and the items.
-void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bounds)
+void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bounds, sf::FloatRect p_weaponBounds, bool p_attacking)
 {
     // Iterators for iterating
     std::list<sf::Vector2i>::iterator itr_vector2i;
@@ -201,6 +201,9 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
     std::list<Guard>::iterator itr_guard;
 
     guardCollision = false;
+
+    sf::Vector2i p_gridLoc = sf::Vector2i((p_bounds.top + (p_bounds.height / 2)) / tileSize,
+                                          (p_bounds.left + (p_bounds.width / 2)) / tileSize);
 
     // Reverting the tile colours from last time
     revertTileColors();
@@ -271,14 +274,37 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
     // Updating guards
     for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
     {
-        if(itr_guard->update(tiles, p_bounds))
+        // Only update the guard if it's alive
+        if(itr_guard->getAlive())
         {
-            guardCollision = true;
-            reset();
-            break;
+            std::list<sf::Vector2i> guardVision = itr_guard->getVisibleTiles();
+
+            if(itr_guard->update(tiles, p_bounds, tileSize))
+            {
+                guardCollision = true;
+                reset();
+                break;
+            }
+
+            if (p_attacking && itr_guard->getBounds().intersects(p_weaponBounds))
+            {
+                pacifistBonus = false;
+                itr_guard->setAlive(false);
+                levelScore += 10;
+            }
+
+            for(itr_vector2i = guardVision.begin(); itr_vector2i != guardVision.end(); ++itr_vector2i)
+            {
+                if(itr_vector2i->x == p_gridLoc.x && itr_vector2i->y == p_gridLoc.y)
+                {
+                    std::cout << "I SEE YOU!!" << std::endl;
+                    stealthBonus = false;
+                }
+            }
+
+            /// TODO: Get Guard Vision Working Correctly
         }
     }
-
 }
 
 // Reset method, called when the player dies
