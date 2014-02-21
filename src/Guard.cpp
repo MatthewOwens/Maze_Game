@@ -117,24 +117,35 @@ bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds, const int tileSiz
     if (velocity.x > 0)
     {
         for(int i = gridLoc.x; i < 10; i++)
-            visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+        {
+            if (l_tiles[i][gridLoc.y].getIdentifier() != 1)
+                visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+        }
     }
-    else
+    else if (velocity.x < 0)
     {
         for(int i = gridLoc.x; i >= 0; i--)
-            visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+        {
+            if (l_tiles[i][gridLoc.y].getIdentifier() != 1)
+                visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+        }
     }
     if (velocity.y > 0)
     {
         for(int i = gridLoc.y; i < 10; i++)
-            visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+        {
+            if (l_tiles[gridLoc.x][i].getIdentifier() != 1)
+                visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+        }
     }
-    else
+    else if (velocity.y < 0)
     {
         for(int i = gridLoc.y; i >= 0; i--)
-            visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+        {
+            if (l_tiles[gridLoc.x][i].getIdentifier() != 1)
+                visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+        }
     }
-
 
     sprite.move(velocity.x, velocity.y);
 

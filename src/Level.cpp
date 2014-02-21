@@ -297,8 +297,8 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
             {
                 if(itr_vector2i->x == p_gridLoc.x && itr_vector2i->y == p_gridLoc.y)
                 {
-                    std::cout << "I SEE YOU!!" << std::endl;
                     stealthBonus = false;
+                    std::cout << "asjdio" << std::endl;
                 }
             }
 
@@ -344,7 +344,7 @@ void Level::draw(sf::RenderWindow& window)
     // Drawing the guards
     for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
     {
-        if(itr_guard->getAlive() && itr_guard->getVisible())
+        if(itr_guard->getAlive() )//&& itr_guard->getVisible())
             window.draw(itr_guard->getSprite());
     }
 }
