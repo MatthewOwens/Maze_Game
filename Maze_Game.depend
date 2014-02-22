@@ -341,7 +341,7 @@
 	<string>
 	<vector>
 
-1392844313 source:c:\users\matthew\documents\github\maze_game\src\imagemanager.cpp
+1393084217 source:c:\users\matthew\documents\github\maze_game\src\imagemanager.cpp
 	"ImageManager.h"
 	<iostream>
 
@@ -349,14 +349,14 @@
 	<SFML/Graphics.hpp>
 	<map>
 
-1392845742 source:c:\users\matthew\documents\github\maze_game\src\actor.cpp
+1392927141 source:c:\users\matthew\documents\github\maze_game\src\actor.cpp
 	"Actor.h"
 
 1392903912 c:\users\matthew\documents\github\maze_game\include\actor.h
 	<SFML/Graphics.hpp>
 	<list>
 
-1392925087 c:\users\matthew\documents\github\maze_game\include\level.h
+1393084217 c:\users\matthew\documents\github\maze_game\include\level.h
 	"Tile.h"
 	<SFML/Graphics/RenderWindow.hpp>
 	"ImageManager.h"
@@ -369,24 +369,24 @@
 1392844725 c:\users\matthew\documents\github\maze_game\include\tile.h
 	<SFML/Graphics.hpp>
 
-1392925114 source:c:\users\matthew\documents\github\maze_game\src\level.cpp
+1393085140 source:c:\users\matthew\documents\github\maze_game\src\level.cpp
 	"Level.h"
 	<fstream>
 	<sstream>
 
-1392906947 source:c:\users\matthew\documents\github\maze_game\src\player.cpp
+1393084217 source:c:\users\matthew\documents\github\maze_game\src\player.cpp
 	"Player.h"
 	<SFML/Window/Keyboard.hpp>
 	<iostream>
 
-1392925340 c:\users\matthew\documents\github\maze_game\include\player.h
+1393084217 c:\users\matthew\documents\github\maze_game\include\player.h
 	"Actor.h"
 	"Tile.h"
 
 1392844305 source:c:\users\matthew\documents\github\maze_game\src\tile.cpp
 	"Tile.h"
 
-1392925308 source:c:\users\matthew\documents\github\maze_game\src\main.cpp
+1393084217 source:c:\users\matthew\documents\github\maze_game\src\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"ImageManager.h"
@@ -402,11 +402,11 @@
 	"Item.h"
 	<iostream>
 
-1392924810 source:c:\users\matthew\documents\github\maze_game\src\guard.cpp
+1393084217 source:c:\users\matthew\documents\github\maze_game\src\guard.cpp
 	"Guard.h"
 	<iostream>
 
-1392922965 c:\users\matthew\documents\github\maze_game\include\guard.h
+1393084217 c:\users\matthew\documents\github\maze_game\include\guard.h
 	"Actor.h"
 	<string>
 	"Tile.h"
@@ -819,4 +819,9 @@
 	"UserInterface.h"
 
 1392973751 c:\users\0608688\documents\github\maze_game\include\userinterface.h
+
+1392930126 source:c:\users\matthew\documents\github\maze_game\src\userinterface.cpp
+	"UserInterface.h"
+
+1392930160 c:\users\matthew\documents\github\maze_game\include\userinterface.h
 

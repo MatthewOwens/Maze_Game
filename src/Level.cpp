@@ -202,8 +202,8 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
 
     guardCollision = false;
 
-    sf::Vector2i p_gridLoc = sf::Vector2i((p_bounds.top + (p_bounds.height / 2)) / tileSize,
-                                          (p_bounds.left + (p_bounds.width / 2)) / tileSize);
+    sf::Vector2i p_gridLoc = sf::Vector2i((p_bounds.left + (p_bounds.width / 2)) / tileSize,
+                                          (p_bounds.top + (p_bounds.height / 2)) / tileSize);
 
     // Reverting the tile colours from last time
     revertTileColors();
@@ -295,14 +295,12 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
 
             for(itr_vector2i = guardVision.begin(); itr_vector2i != guardVision.end(); ++itr_vector2i)
             {
+                //tiles[itr_vector2i->x][itr_vector2i->y].sprite.setColor(sf::Color::Cyan);
                 if(itr_vector2i->x == p_gridLoc.x && itr_vector2i->y == p_gridLoc.y)
                 {
                     stealthBonus = false;
-                    std::cout << "asjdio" << std::endl;
                 }
             }
-
-            /// TODO: Get Guard Vision Working Correctly
         }
     }
 }
@@ -344,7 +342,7 @@ void Level::draw(sf::RenderWindow& window)
     // Drawing the guards
     for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
     {
-        if(itr_guard->getAlive() )//&& itr_guard->getVisible())
+        if(itr_guard->getAlive() && itr_guard->getVisible())
             window.draw(itr_guard->getSprite());
     }
 }
