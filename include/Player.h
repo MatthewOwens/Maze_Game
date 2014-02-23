@@ -19,6 +19,7 @@ class Player : public Actor
         void draw(sf::RenderWindow& renderWindow);
         sf::FloatRect getWeaponBounds();
         bool isAttacking();
+        int getLives();
     private:
         void peek(Tile tiles[][10], const int tileSize);
         int lives = 3;

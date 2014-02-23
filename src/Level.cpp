@@ -389,3 +389,7 @@ Tile Level::getTile(int x, int y) { return tiles[x][y]; }
 sf::Vector2i Level::getSpawn() { return playerSpawn; }
 const int Level::getTileSize() { return tileSize; }
 bool Level::getGuardCollision() {return guardCollision; }
+int Level::getScore() {return levelScore;}
+bool Level::getStealth() {return stealthBonus; }
+bool Level::getPacifist() {return pacifistBonus; }
+bool Level::getComplete() {return levelComplete; }

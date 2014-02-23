@@ -11,6 +11,7 @@ ImageManager::ImageManager()
     loadImage("assets/ingotSprite.png", "ingot");
     loadImage("assets/guardSprite.png", "guardSprite");
     loadImage("assets/weaponSprite.png", "weaponSprite");
+    loadImage("assets/titleImage.jpg", "TitleImage");
 }
 
 ImageManager::~ImageManager()

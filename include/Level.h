@@ -32,6 +32,10 @@ class Level
         sf::Vector2i getSpawn();
         const int getTileSize();
         bool getGuardCollision();
+        int getScore();
+        bool getStealth();
+        bool getPacifist();
+        bool getComplete();
 
     private:
         Tile tiles[10][10];         // The tiles that will make the level map

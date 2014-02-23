@@ -272,3 +272,4 @@ void Player::outputVisibleTiles()
 // Accessor methods
 sf::FloatRect Player::getWeaponBounds() { return weaponSprite.getGlobalBounds(); }
 bool Player::isAttacking() { return attacking; }
+int Player::getLives() { return lives; }

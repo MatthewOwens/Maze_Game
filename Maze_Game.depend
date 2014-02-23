@@ -341,7 +341,7 @@
 	<string>
 	<vector>
 
-1393084217 source:c:\users\matthew\documents\github\maze_game\src\imagemanager.cpp
+1393170677 source:c:\users\matthew\documents\github\maze_game\src\imagemanager.cpp
 	"ImageManager.h"
 	<iostream>
 
@@ -356,7 +356,7 @@
 	<SFML/Graphics.hpp>
 	<list>
 
-1393084217 c:\users\matthew\documents\github\maze_game\include\level.h
+1393172914 c:\users\matthew\documents\github\maze_game\include\level.h
 	"Tile.h"
 	<SFML/Graphics/RenderWindow.hpp>
 	"ImageManager.h"
@@ -369,30 +369,30 @@
 1392844725 c:\users\matthew\documents\github\maze_game\include\tile.h
 	<SFML/Graphics.hpp>
 
-1393085140 source:c:\users\matthew\documents\github\maze_game\src\level.cpp
+1393172942 source:c:\users\matthew\documents\github\maze_game\src\level.cpp
 	"Level.h"
 	<fstream>
 	<sstream>
 
-1393084217 source:c:\users\matthew\documents\github\maze_game\src\player.cpp
+1393171843 source:c:\users\matthew\documents\github\maze_game\src\player.cpp
 	"Player.h"
 	<SFML/Window/Keyboard.hpp>
 	<iostream>
 
-1393084217 c:\users\matthew\documents\github\maze_game\include\player.h
+1393172749 c:\users\matthew\documents\github\maze_game\include\player.h
 	"Actor.h"
 	"Tile.h"
 
 1392844305 source:c:\users\matthew\documents\github\maze_game\src\tile.cpp
 	"Tile.h"
 
-1393084217 source:c:\users\matthew\documents\github\maze_game\src\main.cpp
+1393173849 source:c:\users\matthew\documents\github\maze_game\src\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"ImageManager.h"
 	"Level.h"
 	"Player.h"
-	"Tile.h"
+	"UserInterface.h"
 
 1392857836 c:\users\matthew\documents\github\maze_game\include\item.h
 	<string>
@@ -820,8 +820,14 @@
 
 1392973751 c:\users\0608688\documents\github\maze_game\include\userinterface.h
 
-1392930126 source:c:\users\matthew\documents\github\maze_game\src\userinterface.cpp
+1393170352 source:c:\users\matthew\documents\github\maze_game\src\userinterface.cpp
 	"UserInterface.h"
+	<SFML/Window/Keyboard.hpp>
+	<sstream>
 
-1392930160 c:\users\matthew\documents\github\maze_game\include\userinterface.h
+1393173872 c:\users\matthew\documents\github\maze_game\include\userinterface.h
+	<SFML/Graphics.hpp>
+	"ImageManager.h"
+	<list>
+	<string>
 
