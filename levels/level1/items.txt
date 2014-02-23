@@ -1,0 +1,3 @@
+diamond,8,1
+necklace,1,6
+ingot,3,1

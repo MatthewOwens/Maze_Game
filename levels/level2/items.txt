@@ -1,0 +1,2 @@
+diamond,9,5
+ingot,6,5

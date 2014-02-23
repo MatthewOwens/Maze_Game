@@ -22,6 +22,7 @@ class Player : public Actor
         int getLives();
         void addLife();
         void reset();
+        void setPosition(sf::Vector2i spawnLocation);
     private:
         void peek(Tile tiles[][10], const int tileSize);
         int lives = 3;

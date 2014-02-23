@@ -20,8 +20,6 @@ Level::Level(const std::string& filepath, ImageManager &imageManager)
     loadGuards(filepath, imageManager);
 
     // Initilizing the collision locations of the guards
-
-    /// ERROR
     for(itr_guard = guards.begin(); itr_guard != guards.end(); ++itr_guard)
         itr_guard->initCollisionTiles(tiles, tileSize);
 }

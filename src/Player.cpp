@@ -24,6 +24,14 @@ void Player::die(sf::Vector2i spawn)
     sprite.setPosition(spawn.x + 32,spawn.y + 32);
 }
 
+void Player::setPosition(sf::Vector2i spawnLocation)
+{
+    std::cout << "IOHRTIOAHTIOUHASIDUPBHASIDB" << std::endl;
+    sprite.setPosition(spawnLocation.x + 32, spawnLocation.y + 32);
+    directionFacing = Direction::North;
+    weaponSprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - sprite.getGlobalBounds().height);
+}
+
 void Player::update(Tile tiles[][10], const int tileSize)
 {
     // Finding the player's location on the grid

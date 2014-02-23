@@ -92,6 +92,9 @@ void UserInterface::updateLevelComplete(int l_score, bool l_stealth, bool l_paci
         counter++;
     }
 
+    textObjects.push_back(sf::Text("Press Space to Continue", font));
+    textObjects.back().setPosition(320 - textObjects.back().getGlobalBounds().width / 2, 640);
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         if (l_count < 4)

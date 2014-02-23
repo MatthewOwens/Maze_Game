@@ -9,6 +9,7 @@
 #include "Level.h"
 #include "Player.h"
 #include "UserInterface.h"
+#include "Scoreboard.h"
 
 int main()
 {
@@ -17,6 +18,7 @@ int main()
     window.setFramerateLimit(60);
     ImageManager imageManager;  // for loading in images
     UserInterface ui(imageManager.getImage("TitleImage"), "assets/Anonymous Pro.ttf");
+    Scoreboard scoreboard;
     int currentLevel = 0;
     Level levels[] ={Level("levels/level0", imageManager),
                      Level("levels/level1", imageManager),
@@ -52,14 +54,20 @@ int main()
             ui.updateGame(player.getLives(), levels[currentLevel].getScore(), levels[currentLevel].getComplete());
 
             if(levels[currentLevel].getComplete())
+            {
                 currentLevel++;
+                player.setPosition(levels[currentLevel].getSpawn());
+            }
 
             if (levels[currentLevel].getRubyCollected())
                 player.addLife();
             break;
         case (UserInterface::ScreenState::LevelComplete):
+            scoreboard.addLevelScore(levels[currentLevel-1].getScore(), currentLevel-1,
+                                     levels[currentLevel-1].getStealth(), levels[currentLevel-1].getPacifist());
+
             ui.updateLevelComplete(levels[currentLevel-1].getScore(), levels[currentLevel-1].getStealth(),
-                                   levels[currentLevel-1].getPacifist(), currentLevel, 0);
+                                   levels[currentLevel-1].getPacifist(), currentLevel - 1, scoreboard.getTotalScore());
             break;
         case (UserInterface::ScreenState::GameOver):
             ui.updateGameOver();

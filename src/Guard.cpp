@@ -120,6 +120,7 @@ bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds, const int tileSiz
         {
             if (l_tiles[i][gridLoc.y].getIdentifier() != 1)
                 visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+            else break;
         }
     }
     else if (velocity.x < 0)
@@ -128,6 +129,7 @@ bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds, const int tileSiz
         {
             if (l_tiles[i][gridLoc.y].getIdentifier() != 1)
                 visibleTiles.push_back(sf::Vector2i(i, gridLoc.y));
+            else break;
         }
     }
     if (velocity.y > 0)
@@ -136,6 +138,7 @@ bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds, const int tileSiz
         {
             if (l_tiles[gridLoc.x][i].getIdentifier() != 1)
                 visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+            else break;
         }
     }
     else if (velocity.y < 0)
@@ -144,6 +147,7 @@ bool Guard::update(Tile l_tiles[][10], sf::FloatRect p_bounds, const int tileSiz
         {
             if (l_tiles[gridLoc.x][i].getIdentifier() != 1)
                 visibleTiles.push_back(sf::Vector2i(gridLoc.x, i));
+            else break;
         }
     }
 
