@@ -269,7 +269,14 @@ void Player::outputVisibleTiles()
     }
 }
 
+void Player::reset()
+{
+    lives = 3;
+    attacking = false;
+}
+
 // Accessor methods
 sf::FloatRect Player::getWeaponBounds() { return weaponSprite.getGlobalBounds(); }
 bool Player::isAttacking() { return attacking; }
 int Player::getLives() { return lives; }
+void Player::addLife() {lives++;}

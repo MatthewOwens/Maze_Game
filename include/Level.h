@@ -36,6 +36,7 @@ class Level
         bool getStealth();
         bool getPacifist();
         bool getComplete();
+        bool getRubyCollected();
 
     private:
         Tile tiles[10][10];         // The tiles that will make the level map
@@ -48,6 +49,7 @@ class Level
         bool guardCollision = false;// Whether or not the player collided with a guard
         bool stealthBonus = true;   // Whether or not the player was seen during the level
         bool pacifistBonus = true;  // Whether or not the player killed an enemy during the level.
+        bool rubyCollected = false; // Whether or not a ruby was collected this update
 
         // Private methods
         void revertTileColors();

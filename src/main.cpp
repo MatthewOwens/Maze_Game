@@ -53,13 +53,21 @@ int main()
 
             if(levels[currentLevel].getComplete())
                 currentLevel++;
+
+            if (levels[currentLevel].getRubyCollected())
+                player.addLife();
             break;
         case (UserInterface::ScreenState::LevelComplete):
-            ui.updateLevelComplete(levels[currentLevel].getScore(), levels[currentLevel].getStealth(),
-                                   levels[currentLevel].getPacifist(), currentLevel, 0);
+            ui.updateLevelComplete(levels[currentLevel-1].getScore(), levels[currentLevel-1].getStealth(),
+                                   levels[currentLevel-1].getPacifist(), currentLevel, 0);
             break;
         case (UserInterface::ScreenState::GameOver):
             ui.updateGameOver();
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+                currentLevel = 0;
+                player.reset();
+            }
         }
 
 

@@ -65,12 +65,21 @@ void UserInterface::updateLevelComplete(int l_score, bool l_stealth, bool l_paci
     // Updating the text items
     textObjects.clear();
     std::list<sf::Text>::iterator text_itr;
+    std::stringstream convert;
     int counter = 0;
 
-    textObjects.push_back(sf::Text("Level Score: " + l_score, font));
+    convert << l_score;
+    textObjects.push_back(sf::Text("Level Score: " + convert.str(), font));
+    convert.clear();
+    convert.str(std::string());
+
     textObjects.push_back(sf::Text("Stealth Bonus:  3x", font));
     textObjects.push_back(sf::Text("Pacifist Bonus: 2x", font));
-    textObjects.push_back(sf::Text("Total Score: " + s_totalScore, font));
+
+    convert << s_totalScore;
+    textObjects.push_back(sf::Text("Total Score: " + convert.str(), font));
+    convert.clear();
+    convert.str(std::string());
 
     for(text_itr = textObjects.begin(); text_itr != textObjects.end(); ++text_itr)
     {
@@ -103,7 +112,7 @@ void UserInterface::updateGameOver()
     textObjects.back().setPosition(640, 320 - textObjects.back().getGlobalBounds().width / 2);
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        state = ScreenState::Title;
+        state = ScreenState::Game;
 }
 
 void UserInterface::updateHighscores(std::list<std::string> names, std::list<int>scores, bool highscore, std::string newName)

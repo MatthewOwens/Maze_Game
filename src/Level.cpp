@@ -201,6 +201,7 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
     std::list<Guard>::iterator itr_guard;
 
     guardCollision = false;
+    rubyCollected = false;
 
     sf::Vector2i p_gridLoc = sf::Vector2i((p_bounds.left + (p_bounds.width / 2)) / tileSize,
                                           (p_bounds.top + (p_bounds.height / 2)) / tileSize);
@@ -252,6 +253,8 @@ void Level::update(std::list<sf::Vector2i> p_visibleTiles, sf::FloatRect p_bound
         {
             if (itr_item->id == "diamond")
                 levelComplete = true;
+            else if (itr_item->id == "ruby")
+                rubyCollected = true;
 
             itr_item->collected = true;
             levelScore += itr_item->value;
@@ -393,3 +396,4 @@ int Level::getScore() {return levelScore;}
 bool Level::getStealth() {return stealthBonus; }
 bool Level::getPacifist() {return pacifistBonus; }
 bool Level::getComplete() {return levelComplete; }
+bool Level::getRubyCollected(){ return rubyCollected; }

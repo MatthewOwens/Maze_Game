@@ -20,6 +20,8 @@ class Player : public Actor
         sf::FloatRect getWeaponBounds();
         bool isAttacking();
         int getLives();
+        void addLife();
+        void reset();
     private:
         void peek(Tile tiles[][10], const int tileSize);
         int lives = 3;
