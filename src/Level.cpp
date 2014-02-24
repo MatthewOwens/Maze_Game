@@ -51,10 +51,10 @@ void Level::loadMap(const std::string& filepath, ImageManager &imageManager)
                                             tileSize, 0, i, counter);
                     playerSpawn = sf::Vector2i(i * tileSize, counter * tileSize);
                 }
-                std::cout << line[i];
+                //std::cout << line[i];
             }
             counter++;
-            std::cout << std::endl;
+            //std::cout << std::endl;
         }
     }
     else    // You done goofed.
@@ -94,26 +94,26 @@ void Level::loadItems(const std::string& filepath, ImageManager &imageManager)
                     convert.str(subString);
                     convert >> tempID;
                     //std::cout << "substring: " << subString << std::endl;
-                    std::cout << tempID << " ";
+                    //std::cout << tempID << " ";
                     convert.clear();
                     break;
                 case 1:
                     convert.str(subString);
                     convert >> tempX;
-                    std::cout << tempX << " ";
+                    //std::cout << tempX << " ";
                     convert.clear();
                     break;
                 case 2:
                     convert.str(subString);
                     convert >> tempY;
-                    std::cout << tempY;
+                    //std::cout << tempY;
                     convert.clear();
                     break;
                 }
                 counter++;
             }
             counter = 0;
-            std::cout << std::endl;
+            //std::cout << std::endl;
             items.push_back(Item(tempID, tempX, tempY, tileSize));
         }
 
@@ -178,7 +178,7 @@ void Level::loadGuards(const std::string& filepath, ImageManager &imageManager)
                 counter++;
             }
             counter = 0;
-            std::cout << "Guard values: " << tempDirection << "," << tempX << "," << tempY << "," << tempSpeed<< std::endl;
+            //std::cout << "Guard values: " << tempDirection << "," << tempX << "," << tempY << "," << tempSpeed<< std::endl;
             guards.push_back(Guard(tempX * tileSize, tempY * tileSize, tempSpeed, tempDirection, imageManager.getImage("guardSprite")));
 
         }

@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "UserInterface.h"
 #include "Scoreboard.h"
+#include "InputManager.h"
 
 int main()
 {
@@ -19,6 +20,9 @@ int main()
     ImageManager imageManager;  // for loading in images
     UserInterface ui(imageManager.getImage("TitleImage"), "assets/Anonymous Pro.ttf");
     Scoreboard scoreboard;
+    InputManager inputManager;
+
+    scoreboard.aggregateHighscores();
     int currentLevel = 0;
     Level levels[] ={Level("levels/level0", imageManager),
                      Level("levels/level1", imageManager),
@@ -43,6 +47,8 @@ int main()
         }
 
         // Update Malarky
+        inputManager.update();
+
         switch(ui.getState())
         {
         case (UserInterface::ScreenState::Title):
@@ -51,9 +57,9 @@ int main()
         case (UserInterface::ScreenState::Game):
             player.update(levels[currentLevel].getTiles(), levels[currentLevel].getTileSize());
             levels[currentLevel].update(player.getVisibleTiles(), player.getBounds(), player.getWeaponBounds(), player.isAttacking());
-            ui.updateGame(player.getLives(), levels[currentLevel].getScore(), levels[currentLevel].getComplete());
+            ui.updateGame(player.getLives(), levels[currentLevel].getScore(), currentLevel, levels[currentLevel].getComplete());
 
-            if(levels[currentLevel].getComplete())
+            if(levels[currentLevel].getComplete() && currentLevel != 4)
             {
                 currentLevel++;
                 player.setPosition(levels[currentLevel].getSpawn());
@@ -76,11 +82,18 @@ int main()
                 currentLevel = 0;
                 player.reset();
             }
+            break;
+        case (UserInterface::ScreenState::HighScores):
+            ui.updateHighscores(scoreboard.getNames(), scoreboard.getScores(), scoreboard.getHighscore(), inputManager.getInput());
+            if (inputManager.getBooleanValues("EnterPressed"))
+                scoreboard.addTotalScore(scoreboard.getTotalScore(), inputManager.getInput());
+            break;
         }
-
 
         if(levels[currentLevel].getGuardCollision())
             player.die(levels[currentLevel].getSpawn());
+
+        inputManager.setPreviousValues();
 
         // Draw Malarky
         window.clear();

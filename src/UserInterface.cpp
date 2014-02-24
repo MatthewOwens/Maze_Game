@@ -35,7 +35,7 @@ void UserInterface::updateTitle()
         state = ScreenState::Game;
 }
 
-void UserInterface::updateGame(int p_lives, int l_score, bool l_complete)
+void UserInterface::updateGame(int p_lives, int l_score, int l_count, bool l_complete)
 {
     std::stringstream convert;
 
@@ -54,8 +54,10 @@ void UserInterface::updateGame(int p_lives, int l_score, bool l_complete)
     convert.str(std::string());
     convert.clear();
 
-    if (l_complete)
+    if (l_complete && l_count != 4)
         state = ScreenState::LevelComplete;
+    else if (l_complete && l_count == 4)
+        state = ScreenState::HighScores;
     else if (p_lives == 0)
         state = ScreenState::GameOver;
 }
@@ -118,23 +120,18 @@ void UserInterface::updateGameOver()
         state = ScreenState::Game;
 }
 
-void UserInterface::updateHighscores(std::list<std::string> names, std::list<int>scores, bool highscore, std::string newName)
+void UserInterface::updateHighscores(std::string names[], int scores[], bool highscore, std::string newName)
 {
-    std::list<std::string>::iterator itr_string;
-    std::list<int>::iterator itr_int;
-    int counter = 0;
     std::stringstream convert;
 
     textObjects.clear();
-    itr_int = scores.begin();
 
-    for(itr_string = names.begin(); itr_string != names.end(); ++itr_string)
+    for(int i = 0; i < 5; i++)
     {
-        convert << *itr_int;
-        textObjects.push_back(sf::Text(*itr_string + ":\t" + convert.str(), font));
+        convert << scores[i];
+        textObjects.push_back(sf::Text(names[i] + ":\t" + convert.str(), font));
         textObjects.back().setPosition(320 - textObjects.back().getGlobalBounds().width / 2,
-                                       64 + (64 * counter));
-        counter++;
+                                       64 + (64 * i));
         convert.clear();
         convert.str(std::string());
     }

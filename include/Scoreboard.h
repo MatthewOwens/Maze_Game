@@ -13,8 +13,13 @@ class Scoreboard
     public:
         Scoreboard();
         virtual ~Scoreboard();
+        void aggregateHighscores();
         void addLevelScore(int score, int number, bool stealth, bool pacifist);
+        void addTotalScore(int score, std::string name);
+        bool getHighscore();
         int getTotalScore();
+        int* getScores();
+        std::string* getNames();
     private:
         int levelScores[5];
         int highscore_scores[5];

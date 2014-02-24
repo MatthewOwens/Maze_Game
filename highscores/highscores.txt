@@ -1,0 +1,5 @@
+jim,5000
+bob,2500
+cat,1000
+mac,500
+scrub,0
