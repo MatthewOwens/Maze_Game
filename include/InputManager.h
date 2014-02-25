@@ -12,6 +12,7 @@ class InputManager
         void setPreviousValues();
         std::string getInput();
         bool getBooleanValues(std::string key);
+        bool getPreviousValues(std::string key);
     private:
         std::map<std::string, bool> booleanValues;
         std::map<std::string, bool> previousValues;

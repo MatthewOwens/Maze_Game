@@ -52,37 +52,11 @@ void InputManager::update(sf::RenderWindow &window)
                 booleanValues["BPressed"] = (event.key.code == sf::Keyboard::B);
                 booleanValues["NPressed"] = (event.key.code == sf::Keyboard::N);
                 booleanValues["MPressed"] = (event.key.code == sf::Keyboard::M);
+                booleanValues["EscapePressed"] = (event.key.code == sf::Keyboard::Escape);
+                booleanValues["EnterPressed"] = (event.key.code == sf::Keyboard::Return);
                 break;
         }
     }
-
-    /*booleanValues["EnterPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::Return);
-    booleanValues["QPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
-    booleanValues["WPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-    booleanValues["EPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
-    booleanValues["RPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::R);
-    booleanValues["TPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::T);
-    booleanValues["YPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::Y);
-    booleanValues["UPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::U);
-    booleanValues["IPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::I);
-    booleanValues["OPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::O);
-    booleanValues["PPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::P);
-    booleanValues["APressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-    booleanValues["SPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-    booleanValues["DPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-    booleanValues["FPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::F);
-    booleanValues["GPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::G);
-    booleanValues["HPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::H);
-    booleanValues["JPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::J);
-    booleanValues["KPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::K);
-    booleanValues["LPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::L);
-    booleanValues["ZPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
-    booleanValues["XPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::X);
-    booleanValues["CPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::C);
-    booleanValues["VPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::V);
-    booleanValues["BPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::B);
-    booleanValues["NPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::N);
-    booleanValues["MPressed"] = sf::Keyboard::isKeyPressed(sf::Keyboard::M);*/
 }
 
 std::string InputManager::getInput()
@@ -140,8 +114,9 @@ std::string InputManager::getInput()
     if(booleanValues["MPressed"] && !previousValues["MPressed"])
         input += "m";
 
-    return "ERROR";
+    return input;
 }
 
 bool InputManager::getBooleanValues(std::string key) {return booleanValues[key];}
+bool InputManager::getPreviousValues(std::string key) {return previousValues[key];}
 void InputManager::setPreviousValues() {previousValues = booleanValues; }
