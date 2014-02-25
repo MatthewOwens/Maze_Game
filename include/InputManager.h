@@ -1,14 +1,14 @@
 #ifndef INPUTMANAGER_H
 #define INPUTMANAGER_H
 #include <map>
-#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Graphics.hpp>
 
 class InputManager
 {
     public:
         InputManager();
         virtual ~InputManager();
-        void update();
+        void update(sf::RenderWindow &window);
         void setPreviousValues();
         std::string getInput();
         bool getBooleanValues(std::string key);

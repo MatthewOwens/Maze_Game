@@ -35,12 +35,14 @@
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add directory="C:/Users/Matthew/Documents/Programming/SFML-2.1/include" />
+			<Add directory="C:/Users/0608688/Desktop/SFML-2.1/include" />
 		</Compiler>
 		<Linker>
 			<Add library="sfml-graphics" />
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
 			<Add directory="C:/Users/Matthew/Documents/Programming/SFML-2.1/lib" />
+			<Add directory="C:/Users/0608688/Desktop/SFML-2.1/lib" />
 		</Linker>
 		<Unit filename="include/Actor.h" />
 		<Unit filename="include/Guard.h" />

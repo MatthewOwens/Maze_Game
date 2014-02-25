@@ -35,19 +35,11 @@ int main()
     // Run as long as the window is open
     while (window.isOpen())
     {
-        // Check that all the window events were triggered since the last
-        // iteration of the loop.
-        sf::Event event;
-
-        while (window.pollEvent(event))
-        {
-            // Closing the window
-            if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                window.close();
-        }
+        if(inputManager.getBooleanValues("WindowClosed"))
+            window.close();
 
         // Update Malarky
-        inputManager.update();
+        inputManager.update(window);
 
         switch(ui.getState())
         {
