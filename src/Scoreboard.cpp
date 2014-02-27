@@ -89,6 +89,7 @@ void Scoreboard::addTotalScore(int score, std::string name)
     bool sortFlag = false;
     int tempScore;
     std::string tempName;
+    std::ofstream file("highscores/highscores.txt");
 
     // Checking if the score is a highscore
     for(int i = 0; i < 5; i++)
@@ -112,8 +113,19 @@ void Scoreboard::addTotalScore(int score, std::string name)
         }
     }
 
-    for(int i = 0; i < 5; i++)
-        std::cout << highscore_names[i] << "," << highscore_scores[i] << std::endl;
+    if(file)
+    {
+        // Writing to the scores file
+        for(int i = 0; i < 5; i++)
+        {
+            file << highscore_names[i] << "," << highscore_scores[i] << "\n";
+        }
+    }
+    else
+    {
+        std::cout << "File not found." << std::endl;
+    }
+    highscoreWritten = true;
 }
 
 bool Scoreboard::getHighscore()
@@ -128,3 +140,4 @@ bool Scoreboard::getHighscore()
 
 int* Scoreboard::getScores() {return highscore_scores; }
 std::string* Scoreboard::getNames() {return highscore_names; }
+bool Scoreboard::getHighscoreWritten(){return highscoreWritten; }

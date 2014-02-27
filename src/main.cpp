@@ -77,7 +77,7 @@ int main()
             break;
         case (UserInterface::ScreenState::HighScores):
             ui.updateHighscores(scoreboard.getNames(), scoreboard.getScores(), scoreboard.getHighscore(), inputManager.getInput());
-            if (inputManager.getBooleanValues("EnterPressed") && !inputManager.getPreviousValues("EnterPressed"))
+            if (inputManager.getBooleanValues("EnterPressed") && !inputManager.getPreviousValues("EnterPressed") && !scoreboard.getHighscoreWritten())
                 scoreboard.addTotalScore(scoreboard.getTotalScore(), inputManager.getInput());
             break;
         }

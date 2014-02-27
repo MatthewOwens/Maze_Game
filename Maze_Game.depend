@@ -386,7 +386,7 @@
 1392844305 source:c:\users\matthew\documents\github\maze_game\src\tile.cpp
 	"Tile.h"
 
-1393348139 source:c:\users\matthew\documents\github\maze_game\src\main.cpp
+1393514199 source:c:\users\matthew\documents\github\maze_game\src\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"ImageManager.h"
@@ -833,13 +833,13 @@
 	<list>
 	<string>
 
-1393242111 source:c:\users\matthew\documents\github\maze_game\src\scoreboard.cpp
+1393516643 source:c:\users\matthew\documents\github\maze_game\src\scoreboard.cpp
 	"Scoreboard.h"
 	<iostream>
 	<sstream>
 	<fstream>
 
-1393242074 c:\users\matthew\documents\github\maze_game\include\scoreboard.h
+1393514117 c:\users\matthew\documents\github\maze_game\include\scoreboard.h
 	<string>
 
 1393348139 source:c:\users\matthew\documents\github\maze_game\src\inputmanager.cpp

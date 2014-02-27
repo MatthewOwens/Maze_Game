@@ -17,6 +17,7 @@ class Scoreboard
         void addLevelScore(int score, int number, bool stealth, bool pacifist);
         void addTotalScore(int score, std::string name);
         bool getHighscore();
+        bool getHighscoreWritten();
         int getTotalScore();
         int* getScores();
         std::string* getNames();
@@ -24,6 +25,7 @@ class Scoreboard
         int levelScores[5];
         int highscore_scores[5];
         std::string highscore_names[5];
+        bool highscoreWritten = false;
 };
 
 #endif // SCOREBOARD_H
